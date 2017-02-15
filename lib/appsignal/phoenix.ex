@@ -23,8 +23,6 @@ if Appsignal.phoenix? do
     @doc false
     defmacro __using__(_) do
       quote do
-        plug Appsignal.Phoenix.Plug
-
         def call(conn, opts) do
           try do
             super(conn, opts)

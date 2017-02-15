@@ -28,7 +28,10 @@ if Appsignal.phoenix? do
 
     @doc false
     def phoenix_controller_call(:start, _compiled, args) do
-      maybe_transaction_start_event(args, args)
+      id = Logger.metadata()[:request_id] || Transaction.generate_id()
+      transaction = Transaction.start(id, :http_request)
+
+      maybe_transaction_start_event(transaction, args)
     end
 
     @doc false
